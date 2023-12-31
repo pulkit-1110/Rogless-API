@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const config = require("config");
+require("dotenv").config();
 const {
   TokenNotFoundError,
   UnauthorizedAccessError,
@@ -15,7 +15,7 @@ class AuthMiddleware {
       const bearerToken = authorization.split(" ");
       const token = bearerToken[1];
 
-      const jwtPayload = jwt.verify(token, config.get("jwt.secretKey"));
+      const jwtPayload = jwt.verify(token, process.env.JWT_SECRET_KEY);
 
       const accountId = jwtPayload.accountId;
 
